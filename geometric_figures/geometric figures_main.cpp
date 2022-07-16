@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include <cmath>
 #define M_PI       3.14159265358979323846   // pi
 using namespace std;
@@ -6,8 +6,8 @@ using namespace std;
 class Geometric_figures {
 protected:
 	double r{};
-	double height{};   // высота
-	double width{};	// ширина
+	double height{};   // РІС‹СЃРѕС‚Р°
+	double width{};	// С€РёСЂРёРЅР°
 public:
 	const double& get_r()const { return r; }
 	const double& get_height()const { return height; }
@@ -32,16 +32,16 @@ public:
 	}
 	  
 	virtual ~Geometric_figures(){cout << "Geometric_figuresDEstructor:\t" << this << endl;}
-	//virtual double perimeter() = 0;//периметр
-	//virtual double square() = 0;	//площадь
-	virtual double perimeter(double r) = 0;//периметр
-	virtual double square(double r) = 0;	//площадь
-	//virtual double perimeter(double r, double width) = 0;//периметр
-	//virtual double square(double r, double width) = 0;	//площадь
+	//virtual double perimeter() = 0;//РїРµСЂРёРјРµС‚СЂ
+	//virtual double square() = 0;	//РїР»РѕС‰Р°РґСЊ
+	virtual double perimeter(double r) = 0;//РїРµСЂРёРјРµС‚СЂ
+	virtual double square(double r) = 0;	//РїР»РѕС‰Р°РґСЊ
+	//virtual double perimeter(double r, double width) = 0;//РїРµСЂРёРјРµС‚СЂ
+	//virtual double square(double r, double width) = 0;	//РїР»РѕС‰Р°РґСЊ
 };
 
-class Square_figure : Geometric_figures {//квадрат
-	double width{};   // ширина
+class Square_figure : Geometric_figures {//РєРІР°РґСЂР°С‚
+	double width{};   // С€РёСЂРёРЅР°
 public:
 	const double get_width()const { return width; }
 	void set_width(const double& width) { 
@@ -57,20 +57,20 @@ public:
 	}
 
 	~Square_figure(){ cout << "Square_figureDEstructor:\t" << this << endl; }
-	double perimeter( double width) {//периметр
+	double perimeter( double width) {//РїРµСЂРёРјРµС‚СЂ
 		return width * 4;
 	}
 
-	double square( double width) {	//площадь
+	double square( double width) {	//РїР»РѕС‰Р°РґСЊ
 		return width * width;
 	}
 
 };
 
-class Rectangle : Geometric_figures {//прямоугольник
+class Rectangle : Geometric_figures {//РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
 
-	double height{};   // высота
-	double width{};	// ширина
+	double height{};   // РІС‹СЃРѕС‚Р°
+	double width{};	// С€РёСЂРёРЅР°
 public:
 	const double& get_height()const { return height; }
 	const double& get_width()const { return width; }
@@ -86,17 +86,17 @@ public:
 		cout << "REctangleConstructor2param:\t" << this << endl;
 	}
 	~Rectangle() { cout << "REctangleDEstructor:\t" << this << endl; }
-	double perimeter(double height, double width) {//периметр
+	double perimeter(double height, double width) {//РїРµСЂРёРјРµС‚СЂ
 		return  2 *(height + width);
 	}
 
-	double square(double height, double width) {	//площадь
+	double square(double height, double width) {	//РїР»РѕС‰Р°РґСЊ
 		return height * width;
 	}
 	
 };
 
-class Circle : Geometric_figures {//круг
+class Circle : Geometric_figures {//РєСЂСѓРі
 	double r{};
 public:
 	const double& get_r()const { return r; }
@@ -111,15 +111,15 @@ public:
 	}
 
 	~Circle(){ cout << "CirkleleDEstructor:\t" << this << endl; }
-	double perimeter(double r) {//периметр
+	double perimeter(double r) {//РїРµСЂРёРјРµС‚СЂ
 		return 2 * r * M_PI;
 	}
-	double square(double r) {	//площадь
+	double square(double r) {	//РїР»РѕС‰Р°РґСЊ
 		return r * r * M_PI;
 	}
 };
 
-class Triangle : Geometric_figures {//треугольник
+class Triangle : Geometric_figures {//С‚СЂРµСѓРіРѕР»СЊРЅРёРє
 	double x{};
 	double y{};
 	double z{};
@@ -145,17 +145,17 @@ public:
 		//Geometric_figures::info();
 		cout << "x= " << x << ", " << "y= " << y << ", " << "z= " << z << endl;
 	}
-	//double perimeter() const {//периметр
+	//double perimeter() const {//РїРµСЂРёРјРµС‚СЂ
 	//	return r * r * M_PI;
 	//}
 
-	//double square() const {	//площадь
+	//double square() const {	//РїР»РѕС‰Р°РґСЊ
 	//	return r * r * M_PI;
 	//}
 
 };
 
-//class Square :public Geometric_figures {//прямоугольник
+//class Square :public Geometric_figures {//РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
 //
 //
 //};
