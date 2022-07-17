@@ -4,20 +4,20 @@
 using namespace std;
 
 class Geometric_figures {
-//protected:
-public:
+protected:
 	double r;
 	double height;   // высота
 	double width;	// ширина
+public:
 
 	const double& get_r()const { return r; }
 	const double& get_height()const { return height; }
 	const double& get_width()const { return width; }
 
-	void set_r(double r){ this->r = r; }
-	void set_height(double height){ this->height = height; }
-	void set_width(double width){ this->width = width; }
-	void set_two_param(double height, double width) { this->height = height; this->width = width;}
+	void set_r(const double& r){ this->r = r; }
+	void set_height(const double& height){ this->height = height; }
+	void set_width(const double& width){ this->width = width; }
+	void set_two_param(const double& height, const  double& width) { this->height = height; this->width = width;}
 
 	/*Geometric_figures() {
 		this->r = 0;
@@ -52,10 +52,7 @@ class Square_figure : public  Geometric_figures {//квадрат
 public:
 	const double get_width()const { return width; }
 	void set_width(const double& width) { this->width = width;}
-	/*Square_figure() {
-		set_width(width);
-		cout << "Square_figureConstructorPoUmolchaniyu:\t" << this << endl;
-	}*/
+	
 	Square_figure() :Geometric_figures(width) {
 		set_width(width);
 		/*cout << "Square_figureConstructor3:\t" << this << endl;*/
@@ -81,7 +78,7 @@ public:
 	const double& get_width()const { return width; }
 	void set_height(const double& height) { this->height = height; }
 	void set_width(const double& width) { this->width = width; }
-	void set_two_param(double height, double width) { this->height = height; this->width = width; }
+	void set_two_param(const double& height, const double& width) { this->height = height; this->width = width; }
 	/*Rectangle() {
 		cout << "REctangleConstructor0param:\t" << this << endl;
 	}*/
@@ -129,33 +126,20 @@ class Triangle :public  Geometric_figures {//треугольник
 	double y{};
 	double z{};*/
 public:
-	const double& get_x()const { return r; }
-	const double& get_y()const { return height; }
-	const double& get_z()const { return width; }
-	void set_x(const double& r) { this->r = r; }
-	void set_y(const double& height) { this->height = height; }
-	void set_z(const double& width) { this->width = width; }
-	//void set_thre_param(double r, double height,double width){ this->r = r; }
-	/*Triangle() {
-		cout << "TriangleConstructor0:\t" << this << endl;
-	}*/
+	const double& get_r()const { return r; }
+	void set_r(const double& r) { this->r = r; }
+
 	Triangle():Geometric_figures(r) {
-		set_x(r);
-		//set_y(height);
-		//set_z(width);
-		/*cout << "TriangleConstructor3:\t" << this << endl;*/
+		set_r(r);
+		/*cout << "TriangleConstructor1:\t" << this << endl;*/
 	}
 	~Triangle() { /*cout << "TriangleDestructor:\t" << this << endl;*/ }
 
-	//void  info()const {
-	//	//Geometric_figures::info();
-	//	cout << "x= " << x << ", " << "y= " << y << ", " << "z= " << z << endl;
-	//}
-	//double perimeter() const {//периметр
-	//	return r * r * M_PI;
-	//}
+	double perimeter() {//периметр
+		return r * r * M_PI;
+	}
 
-	double square() const {	//площадь
+	double square() {	//площадь
 		return sqrt(3) * r * r / 4;
 	}
 
@@ -184,8 +168,9 @@ int main() {
 	cout <<"Периметр прямоугольника со сторонами :" << pryamougolnik.get_height() << ", " << pryamougolnik.get_width() << "= " << pryamougolnik.perimeter() << endl;
 	cout <<"Площадь  прямоугольника со сторонами :" << pryamougolnik.get_height() << ", " << pryamougolnik.get_width() << "= " << pryamougolnik.square() << endl;
 
-	//Triangle treugolnik;
-
+	Triangle treugolnik;
+	treugolnik.set_r(100);
+	cout << "Площадь		    треугольника  :" << treugolnik.get_r() << "= " << treugolnik.square() << endl;
 
 
 	return 1;
