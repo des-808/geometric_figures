@@ -9,22 +9,14 @@ protected:
 	double height;   // высота
 	double width;	// ширина
 public:
-
 	const double& get_r()const { return r; }
 	const double& get_height()const { return height; }
 	const double& get_width()const { return width; }
-
 	void set_r(const double& r){ this->r = r; }
 	void set_height(const double& height){ this->height = height; }
 	void set_width(const double& width){ this->width = width; }
 	void set_two_param(const double& height, const  double& width) { this->height = height; this->width = width;}
 
-	/*Geometric_figures() {
-		this->r = 0;
-		this->height = 0;
-		this->width = 0;
-		cout << "Geometric_figuresConstructor0param:\t" << this << endl;
-	}*/
 	Geometric_figures( double r) {
 		set_r(r);
 		/*cout << "Geometric_figuresConstructor1param:\t" << this << endl;*/
@@ -44,11 +36,9 @@ public:
 	virtual ~Geometric_figures(){/*cout << "Geometric_figuresDEstructor:\t" << this << endl;*/}
 	virtual double perimeter() = 0;//периметр
 	virtual double square() = 0;	//площадь
-
 };
 
 class Square_figure : public  Geometric_figures {//квадрат
-	//double width{};   // ширина
 public:
 	const double get_width()const { return width; }
 	void set_width(const double& width) { this->width = width;}
@@ -66,22 +56,16 @@ public:
 	double square() {	//площадь
 		return width * width;
 	}
-
 };
 
 class Rectangle : public Geometric_figures {//прямоугольник
-
-	//double height{};   // высота
-	//double width{};	// ширина
 public:
 	const double& get_height()const { return height; }
 	const double& get_width()const { return width; }
 	void set_height(const double& height) { this->height = height; }
 	void set_width(const double& width) { this->width = width; }
 	void set_two_param(const double& height, const double& width) { this->height = height; this->width = width; }
-	/*Rectangle() {
-		cout << "REctangleConstructor0param:\t" << this << endl;
-	}*/
+	
 	Rectangle():Geometric_figures(height, width) {
 		set_height(height);
 		set_width(width);
@@ -95,19 +79,13 @@ public:
 	double square() {	//площадь
 		return height * width;
 	}
-	
 };
 
 class Circle :public  Geometric_figures {//круг
-	//double r{};
 public:
 	const double& get_r()const { return r; }
 	void set_r(const double& r) { this->r = r; }
 
-
-	//Circle() {
-	//	//set_r(0);
-	//}
 	Circle() :Geometric_figures(r) {
 		set_r(r);
 	}
@@ -122,9 +100,7 @@ public:
 };
 
 class Triangle :public  Geometric_figures {//треугольник
-	/*double x{};
-	double y{};
-	double z{};*/
+
 public:
 	const double& get_r()const { return r; }
 	void set_r(const double& r) { this->r = r; }
@@ -145,10 +121,6 @@ public:
 
 };
 
-//class Square :public Geometric_figures {//прямоугольник
-//
-//
-//};
 
 int main() {
 	setlocale(LC_ALL, "Russian");
