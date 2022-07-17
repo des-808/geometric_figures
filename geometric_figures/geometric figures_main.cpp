@@ -27,29 +27,24 @@ public:
 	}*/
 	Geometric_figures( double r) {
 		set_r(r);
-		cout << "Geometric_figuresConstructor1param:\t" << this << endl;
+		/*cout << "Geometric_figuresConstructor1param:\t" << this << endl;*/
 	}
 	Geometric_figures(double height,double width) {
 		set_height(height);
 		set_width(width);
-		cout << "Geometric_figuresConstructor2param:\t" << this << endl;
+		/*cout << "Geometric_figuresConstructor2param:\t" << this << endl;*/
 	}
 	Geometric_figures(double r, double height, double width) {
 		set_r(r);
 		set_height(height);
 		set_width(width);
-		cout << "Geometric_figuresConstructor3param:\t" << this << endl;
+		/*cout << "Geometric_figuresConstructor3param:\t" << this << endl;*/
 	}
 	  
-	virtual ~Geometric_figures(){cout << "Geometric_figuresDEstructor:\t" << this << endl;}
+	virtual ~Geometric_figures(){/*cout << "Geometric_figuresDEstructor:\t" << this << endl;*/}
 	virtual double perimeter() = 0;//периметр
 	virtual double square() = 0;	//площадь
 
-	//virtual double perimeter(double r) = 0;//периметр
-	//virtual double square(double r) = 0;	//площадь
-	 
-	//virtual double perimeter(double r, double width) = 0;//периметр
-	//virtual double square(double r, double width) = 0;   //площадь
 };
 
 class Square_figure : public  Geometric_figures {//квадрат
@@ -63,10 +58,10 @@ public:
 	}*/
 	Square_figure() :Geometric_figures(width) {
 		set_width(width);
-		cout << "Square_figureConstructor3:\t" << this << endl;
+		/*cout << "Square_figureConstructor3:\t" << this << endl;*/
 	}
 
-	~Square_figure(){ cout << "Square_figureDEstructor:\t" << this << endl; }
+	~Square_figure(){ /*cout << "Square_figureDEstructor:\t" << this << endl;*/ }
 	double perimeter( ) {//периметр
 		return width * 4;
 	}
@@ -93,9 +88,9 @@ public:
 	Rectangle():Geometric_figures(height, width) {
 		set_height(height);
 		set_width(width);
-		cout << "REctangleConstructor2param:\t" << this << endl;
+		/*cout << "REctangleConstructor2param:\t" << this << endl;*/
 	}
-	~Rectangle() { cout << "REctangleDEstructor:\t" << this << endl; }
+	~Rectangle() { /*cout << "REctangleDEstructor:\t" << this << endl;*/ }
 	double perimeter() {//периметр
 		return  2 *(height + width);
 	}
@@ -120,7 +115,7 @@ public:
 		set_r(r);
 	}
 
-	~Circle(){ cout << "CirkleleDEstructor:\t" << this << endl; }
+	~Circle(){ /*cout << "CirkleleDEstructor:\t" << this << endl;*/ }
 	double perimeter() {//периметр
 		return 2 * r * M_PI;
 	}
@@ -140,16 +135,17 @@ public:
 	void set_x(const double& r) { this->r = r; }
 	void set_y(const double& height) { this->height = height; }
 	void set_z(const double& width) { this->width = width; }
+	//void set_thre_param(double r, double height,double width){ this->r = r; }
 	/*Triangle() {
 		cout << "TriangleConstructor0:\t" << this << endl;
 	}*/
-	Triangle():Geometric_figures(r,height,width) {
+	Triangle():Geometric_figures(r) {
 		set_x(r);
-		set_y(height);
-		set_z(width);
-		cout << "TriangleConstructor3:\t" << this << endl;
+		//set_y(height);
+		//set_z(width);
+		/*cout << "TriangleConstructor3:\t" << this << endl;*/
 	}
-	~Triangle() { cout << "TriangleDestructor:\t" << this << endl; }
+	~Triangle() { /*cout << "TriangleDestructor:\t" << this << endl;*/ }
 
 	//void  info()const {
 	//	//Geometric_figures::info();
@@ -159,9 +155,9 @@ public:
 	//	return r * r * M_PI;
 	//}
 
-	//double square() const {	//площадь
-	//	return r * r * M_PI;
-	//}
+	double square() const {	//площадь
+		return sqrt(3) * r * r / 4;
+	}
 
 };
 
@@ -175,20 +171,20 @@ int main() {
 	
 	Circle cirkle;
 	cirkle.set_r(8);
-	cout<<"Периметр круга с радиусом " << cirkle.get_r() << "= " <<cirkle.perimeter() << endl;
-	cout<<"Площадь  круга с радиусом " << cirkle.get_r() << "= " <<cirkle.square() << endl;
+	cout<<"Периметр	    круга с радиусом :" << cirkle.get_r() << "= " <<cirkle.perimeter() << endl;
+	cout<<"Площадь		    круга с радиусом :" << cirkle.get_r() << "= " <<cirkle.square() << endl;
 
 	Square_figure kvadrat;
 	kvadrat.set_width(7);
-	cout <<"Периметр квадрата со стороной :" << kvadrat.get_width() << "= " << kvadrat.perimeter() << endl;
-	cout <<"Площадь  квадрата со стороной :" << kvadrat.get_width() << "= " << kvadrat.square() << endl;
+	cout <<"Периметр	квадрата со стороной :" << kvadrat.get_width() << "= " << kvadrat.perimeter() << endl;
+	cout <<"Площадь		квадрата со стороной :" << kvadrat.get_width() << "= " << kvadrat.square() << endl;
 
 	Rectangle pryamougolnik;
 	pryamougolnik.set_two_param(6, 7);
 	cout <<"Периметр прямоугольника со сторонами :" << pryamougolnik.get_height() << ", " << pryamougolnik.get_width() << "= " << pryamougolnik.perimeter() << endl;
 	cout <<"Площадь  прямоугольника со сторонами :" << pryamougolnik.get_height() << ", " << pryamougolnik.get_width() << "= " << pryamougolnik.square() << endl;
 
-
+	//Triangle treugolnik;
 
 
 
