@@ -12,30 +12,37 @@ public:
 	const double& get_r()const { return r; }
 	const double& get_height()const { return height; }
 	const double& get_width()const { return width; }
+	//void set_r(const double& r){ this->r = r; }
 	void set_r(const double& r){ this->r = r; }
 	void set_height(const double& height){ this->height = height; }
 	void set_width(const double& width){ this->width = width; }
 	void set_two_param(const double& height, const  double& width) { this->height = height; this->width = width;}
 
 	Geometric_figures( double r) {
-		set_r(r);
-		/*cout << "Geometric_figuresConstructor1param:\t" << this << endl;*/
+		set_r(r);/*cout << "Geometric_figuresConstructor1param:\t" << this << endl;*/
 	}
 	Geometric_figures(double height,double width) {
-		set_height(height);
-		set_width(width);
+		set_height(height);  set_width(width);
 		/*cout << "Geometric_figuresConstructor2param:\t" << this << endl;*/
 	}
 	Geometric_figures(double r, double height, double width) {
-		set_r(r);
-		set_height(height);
-		set_width(width);
+		set_r(r);  set_height(height);   set_width(width);
 		/*cout << "Geometric_figuresConstructor3param:\t" << this << endl;*/
 	}
 	  
 	virtual ~Geometric_figures(){/*cout << "Geometric_figuresDEstructor:\t" << this << endl;*/}
 	virtual double perimeter() = 0;//периметр
 	virtual double square() = 0;	//площадь
+
+	/*Geometric_figures& operator()(double r ) {
+		this->set_r(r);
+		return *this;
+	}
+	Geometric_figures& operator()(double height, double width) {
+		this->set_height(height);
+		this->set_width(width);
+		return *this;
+	}*/
 };
 
 class Square_figure : public  Geometric_figures {//квадрат
@@ -84,7 +91,8 @@ public:
 class Circle :public  Geometric_figures {//круг
 public:
 	const double& get_r()const { return r; }
-	void set_r(const double& r) { this->r = r; }
+	//void set_r(const double& r) { this->r = r; }
+	void set_r(double r) { this->r = r; }
 
 	Circle() :Geometric_figures(r) {
 		set_r(r);
@@ -124,7 +132,7 @@ public:
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-	
+
 	Circle cirkle;
 	cirkle.set_r(8);
 	cout<<"Периметр	    круга с радиусом :" << cirkle.get_r() << "= " <<cirkle.perimeter() << endl;
