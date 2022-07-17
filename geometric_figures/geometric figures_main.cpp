@@ -18,7 +18,6 @@ public:
 	void set_width(double width){ this->width = width; }
 
 	Geometric_figures() {
-		//set_r(r);
 		cout << "Geometric_figuresConstructor0param:\t" << this << endl;
 	}
 	Geometric_figures(const double& r) {
@@ -34,8 +33,10 @@ public:
 	virtual ~Geometric_figures(){cout << "Geometric_figuresDEstructor:\t" << this << endl;}
 	//virtual double perimeter() = 0;//периметр
 	//virtual double square() = 0;	//площадь
+
 	virtual double perimeter(double r) = 0;//периметр
 	virtual double square(double r) = 0;	//площадь
+	 
 	//virtual double perimeter(double r, double width) = 0;//периметр
 	//virtual double square(double r, double width) = 0;	//площадь
 };
@@ -51,7 +52,7 @@ public:
 		//set_width(width);
 		cout << "Square_figureConstructorPoUmolchaniyu:\t" << this << endl;
 	}
-	Square_figure(const double& width) {
+	Square_figure(const double& width) :Geometric_figures(width) {
 		set_width(width);
 		cout << "Square_figureConstructor3:\t" << this << endl;
 	}
@@ -80,7 +81,7 @@ public:
 	Rectangle() {
 		cout << "REctangleConstructor0param:\t" << this << endl;
 	}
-	Rectangle(const double& height, const double& weight) {
+	Rectangle(const double& height, const double& weight):Geometric_figures(height, width) {
 		set_height(height + 1e9);
 		set_width(width + 1e9);
 		cout << "REctangleConstructor2param:\t" << this << endl;
@@ -106,7 +107,7 @@ public:
 	Circle() {
 		//set_r(0);
 	}
-	Circle(double r) {
+	Circle(double r) :Geometric_figures(r) {
 		set_r(r);
 	}
 
@@ -171,6 +172,7 @@ int main() {
 
 	Geometric_figures *xz;
 	cout << &xz << endl;
+
 	/*Rectangle pryamougolnik;
 	cout<<pryamougolnik.perimeter(12,13)<<endl;*/
 
