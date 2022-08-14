@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<Windows.h>
 #include <cmath>
 #include <WinGDI.h>
@@ -30,14 +30,14 @@ namespace Geometry{
 		primary_size_max = 500
 	};  
 //TODO:
-//	1. Во все геометрические фигуры добавить атрибут 'filled', который определяет, закрашена ли фигура,
-//		или же отображается контуром;
-//	2. В иерархию геометрических фигур добавить класс Circle.
-//		Круг можно нарисовать используя функцию Circle из библиотеки WinGDI;
-//	3. В иерархию геометрических фигур добавить иерархию треугольников.
-//		Треугольник можно нарисовать используя функцию Polygon из библиотеки WinGDI;
-//	4. Реализовать класс Паралелограмм;
-//	5. В отдельной ветке нарисовать все эти фигуры используя библиотеку DirectX или OpenGL;
+//	1. Р’Рѕ РІСЃРµ РіРµРѕРјРµС‚СЂРёС‡РµСЃРєРёРµ С„РёРіСѓСЂС‹ РґРѕР±Р°РІРёС‚СЊ Р°С‚СЂРёР±СѓС‚ 'filled', РєРѕС‚РѕСЂС‹Р№ РѕРїСЂРµРґРµР»СЏРµС‚, Р·Р°РєСЂР°С€РµРЅР° Р»Рё С„РёРіСѓСЂР°,
+//		РёР»Рё Р¶Рµ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ РєРѕРЅС‚СѓСЂРѕРј;
+//	2. Р’ РёРµСЂР°СЂС…РёСЋ РіРµРѕРјРµС‚СЂРёС‡РµСЃРєРёС… С„РёРіСѓСЂ РґРѕР±Р°РІРёС‚СЊ РєР»Р°СЃСЃ Circle.
+//		РљСЂСѓРі РјРѕР¶РЅРѕ РЅР°СЂРёСЃРѕРІР°С‚СЊ РёСЃРїРѕР»СЊР·СѓСЏ С„СѓРЅРєС†РёСЋ Circle РёР· Р±РёР±Р»РёРѕС‚РµРєРё WinGDI;
+//	3. Р’ РёРµСЂР°СЂС…РёСЋ РіРµРѕРјРµС‚СЂРёС‡РµСЃРєРёС… С„РёРіСѓСЂ РґРѕР±Р°РІРёС‚СЊ РёРµСЂР°СЂС…РёСЋ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ.
+//		РўСЂРµСѓРіРѕР»СЊРЅРёРє РјРѕР¶РЅРѕ РЅР°СЂРёСЃРѕРІР°С‚СЊ РёСЃРїРѕР»СЊР·СѓСЏ С„СѓРЅРєС†РёСЋ Polygon РёР· Р±РёР±Р»РёРѕС‚РµРєРё WinGDI;
+//	4. Р РµР°Р»РёР·РѕРІР°С‚СЊ РєР»Р°СЃСЃ РџР°СЂР°Р»РµР»РѕРіСЂР°РјРј;
+//	5. Р’ РѕС‚РґРµР»СЊРЅРѕР№ РІРµС‚РєРµ РЅР°СЂРёСЃРѕРІР°С‚СЊ РІСЃРµ СЌС‚Рё С„РёРіСѓСЂС‹ РёСЃРїРѕР»СЊР·СѓСЏ Р±РёР±Р»РёРѕС‚РµРєСѓ DirectX РёР»Рё OpenGL;
 #define SHAPE_TAKE_PARAMETRES Color color,unsigned int start_x, unsigned int start_y,unsigned int line_width
 #define SHAPE_GIVE_PARAMETRES color,start_x, start_y,line_width
 	class Shape {
@@ -80,15 +80,15 @@ namespace Geometry{
 			set_line_width(line_width);
 		}
 		virtual ~Shape() {}
-		//чисто виртуальные методы и делают класс абстрактным
+		//С‡РёСЃС‚Рѕ РІРёСЂС‚СѓР°Р»СЊРЅС‹Рµ РјРµС‚РѕРґС‹ Рё РґРµР»Р°СЋС‚ РєР»Р°СЃСЃ Р°Р±СЃС‚СЂР°РєС‚РЅС‹Рј
 		virtual double get_area()const = 0;
 		virtual double get_perimeter()const = 0;
 		virtual void draw()const = 0;
 
 		virtual void info()const
 		{
-			cout << "Площадь фигуры:\t" << get_area() << endl;
-			cout << "Периметр фигуры:\t" << get_perimeter() << endl;
+			cout << "РџР»РѕС‰Р°РґСЊ С„РёРіСѓСЂС‹:\t" << get_area() << endl;
+			cout << "РџРµСЂРёРјРµС‚СЂ С„РёРіСѓСЂС‹:\t" << get_perimeter() << endl;
 			draw();
 		}
 	};
@@ -136,7 +136,7 @@ namespace Geometry{
 	//	void info()const
 	//	{
 	//		cout << typeid(*this).name() << endl;
-	//		cout << "Длина стороны: " << get_side() << endl;
+	//		cout << "Р”Р»РёРЅР° СЃС‚РѕСЂРѕРЅС‹: " << get_side() << endl;
 	//		Shape::info();
 	//	}
 	//};
@@ -201,36 +201,36 @@ namespace Geometry{
 				cout << endl;
 			}
 			SetConsoleTextAttribute(hConsole, Color::console_default);*/
-			//1)Получаем окно консоли
+			//1)РџРѕР»СѓС‡Р°РµРј РѕРєРЅРѕ РєРѕРЅСЃРѕР»Рё
 			HWND hConsole = GetConsoleWindow();	
-			//2)Получаем контекст устройства для нашего окна консоли.
-			HDC hdc = GetDC(hConsole);//то на чём будем рисовать
-			//3)создаём карандаш
-			HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
-			//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
+			//2)РџРѕР»СѓС‡Р°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР° РґР»СЏ РЅР°С€РµРіРѕ РѕРєРЅР° РєРѕРЅСЃРѕР»Рё.
+			HDC hdc = GetDC(hConsole);//С‚Рѕ РЅР° С‡С‘Рј Р±СѓРґРµРј СЂРёСЃРѕРІР°С‚СЊ
+			//3)СЃРѕР·РґР°С‘Рј РєР°СЂР°РЅРґР°С€
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);//РљР°СЂР°РЅРґР°С€ СЂРёСЃСѓРµС‚ РєРѕРЅС‚СѓСЂ С„РёРіСѓСЂС‹
+			//PS_SOLID - СЃРїР»РѕС€РЅР°СЏ Р»РёРЅРёСЏ, 5 - С‚РѕР»С‰РёРЅР° Р»РёРЅРёРё 5 РїРёРєСЃРµР»РѕРІ, RGB(...) - С†РІРµС‚.
 
-			//SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
-			HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
-			//SelectObject(hdc, hBrush);//Выбираем созданную кисть.
-			//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
+			//SelectObject(hdc, hPen);//Р’С‹Р±РёСЂР°РµРј СЃРѕР·РґР°РЅРЅС‹Р№ РєР°СЂР°РЅРґР°С€, С‡С‚РѕР±С‹ РёРј РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЂРёСЃРѕРІР°С‚СЊ.
+			HBRUSH hBrush = CreateSolidBrush(color);//РЎРѕР·РґР°РµРј РєРёСЃС‚СЊ. РљРёСЃС‚СЊ Р·Р°РєСЂР°С€РёРІР°РµС‚ Р·Р°РјРєРЅСѓС‚С‹Рµ С„РёРіСѓСЂС‹.
+			//SelectObject(hdc, hBrush);//Р’С‹Р±РёСЂР°РµРј СЃРѕР·РґР°РЅРЅСѓСЋ РєРёСЃС‚СЊ.
+			//РљРёСЃС‚СЊ Рё РєР°СЂР°РЅРґР°С€ РІС‹Р±РёСЂР°СЋС‚СЃСЏ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ С„СѓРЅРєС†РёСЏ Rectangle РїРѕРЅРёРјР°Р»Р° С‡РµРј СЂРёСЃРѕРІР°С‚СЊ
 
-			//выбираем чем и на чём будем рисовать
+			//РІС‹Р±РёСЂР°РµРј С‡РµРј Рё РЅР° С‡С‘Рј Р±СѓРґРµРј СЂРёСЃРѕРІР°С‚СЊ
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
-			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
-			::Rectangle(hdc, start_x, start_y, start_x + width, start_y + height);//Рисует квадрат
+			//РєРѕРіРґР° РјС‹ РІС‹Р±СЂР°Р»Рё РєРµРј Рё РЅР° С‡С‘Рј СЂРёСЃРѕРІР°С‚СЊ. Р РёСЃСѓРµРј С„РёРіСѓСЂСѓ
+			::Rectangle(hdc, start_x, start_y, start_x + width, start_y + height);//Р РёСЃСѓРµС‚ РєРІР°РґСЂР°С‚
 
-			//Удаляем созданную кисть и карандаш:
+			//РЈРґР°Р»СЏРµРј СЃРѕР·РґР°РЅРЅСѓСЋ РєРёСЃС‚СЊ Рё РєР°СЂР°РЅРґР°С€:
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
-			//Освобождаем контекст устройства:
+			//РћСЃРІРѕР±РѕР¶РґР°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР°:
 			ReleaseDC(hConsole, hdc);
 		}
 
 		void info()const{
 			cout << typeid(*this).name() << endl;
-			cout << "Ширина прямоугольника:\t" << get_width() << endl;
-			cout << "Длина прямоугольника:\t" << get_height() << endl;
+			cout << "РЁРёСЂРёРЅР° РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°:\t" << get_width() << endl;
+			cout << "Р”Р»РёРЅР° РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°:\t" << get_height() << endl;
 			Shape::info();
 		}
 	};
@@ -242,7 +242,7 @@ namespace Geometry{
 		void info()const
 		{
 			cout << typeid(*this).name() << endl;
-			cout << "Длина стороны: " << get_width() << endl;
+			cout << "Р”Р»РёРЅР° СЃС‚РѕСЂРѕРЅС‹: " << get_width() << endl;
 			Shape::info();
 		}
 
@@ -252,53 +252,46 @@ class Circle :public Shape{
 	double r;
 public:
 	double get_r()const{return r;}
-	bool  get_filled()const{return filled;}
-	void set_r(double r){this->r = r;}
+	void set_r(double r){if(r>Defaults::primary_size_max)r = Defaults::primary_size_max;
+						 if(r<Defaults::primary_size_min)r = Defaults::primary_size_min;
+						 this->r = r;
+	}
 
-	void set_filled(bool filled){this->filled = filled;}
-	Circle(double xz, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) { this->r = xz; }
+	//bool  get_filled()const{return filled;}
+	//void set_filled(bool filled){this->filled = filled;}
+
+	Circle(double r, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) { set_r(r); }
 	~Circle() {}
 
-	double get_area()const {return 1;}
-	//double get_area()const {return r * r;}
-	double get_perimeter()const {return 2;}
-	//double get_perimeter()const {return (r + r) * 2;}
+	//double get_area()const {return M_PI * r * r;}
+	double get_area()const {return M_PI * pow(r,2);}
+	double get_perimeter()const {return 2*M_PI*r;}
 
 	void draw()const{
-		//1)Получаем окно консоли
+		//1)РџРѕР»СѓС‡Р°РµРј РѕРєРЅРѕ РєРѕРЅСЃРѕР»Рё
 		HWND hConsole = GetConsoleWindow();
-		//2)Получаем контекст устройства для нашего окна консоли.
-		HDC hdc = GetDC(hConsole);//то на чём будем рисовать
-		//3)создаём карандаш
-		HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
-		//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
-		HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
-		//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
-
-		//выбираем чем и на чём будем рисовать
-		SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
-		SelectObject(hdc, hBrush);//Выбираем созданную кисть.
-		//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
-
-		//temp_shape.right = y1 + (x2 - x1);
-		//Ellipse(backbuffDC, temp_shape.left, temp_shape.top, temp_shape.right, temp_shape.bottom);
-		
-		//(start_y + (start_x - r));
-		::Ellipse(hdc, 499,499, 500, 500);//Рисует квадрат
-		//::Ellipse(hdc,start_x,start_y, start_x + (start_y-120),start_y+(start_x-120));//Рисует квадрат
-		//::Ellipse(hdc, start_x, start_y, start_x + 100, start_y+100);//Рисует квадрат
-		//::Ellipse(hdc, start_x, start_y, start_x + 5, start_y+5);//Рисует квадрат
-
-		//Удаляем созданную кисть и карандаш:
+		//2)РџРѕР»СѓС‡Р°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР° РґР»СЏ РЅР°С€РµРіРѕ РѕРєРЅР° РєРѕРЅСЃРѕР»Рё.
+		HDC hdc = GetDC(hConsole);//С‚Рѕ РЅР° С‡С‘Рј Р±СѓРґРµРј СЂРёСЃРѕРІР°С‚СЊ
+		//3)СЃРѕР·РґР°С‘Рј РєР°СЂР°РЅРґР°С€
+		HPEN hPen = CreatePen(PS_SOLID, line_width, color);//РљР°СЂР°РЅРґР°С€ СЂРёСЃСѓРµС‚ РєРѕРЅС‚СѓСЂ С„РёРіСѓСЂС‹
+		//PS_SOLID - СЃРїР»РѕС€РЅР°СЏ Р»РёРЅРёСЏ, 5 - С‚РѕР»С‰РёРЅР° Р»РёРЅРёРё 5 РїРёРєСЃРµР»РѕРІ, RGB(...) - С†РІРµС‚.
+		HBRUSH hBrush = CreateSolidBrush(color);//РЎРѕР·РґР°РµРј РєРёСЃС‚СЊ. РљРёСЃС‚СЊ Р·Р°РєСЂР°С€РёРІР°РµС‚ Р·Р°РјРєРЅСѓС‚С‹Рµ С„РёРіСѓСЂС‹.
+		//РљРёСЃС‚СЊ Рё РєР°СЂР°РЅРґР°С€ РІС‹Р±РёСЂР°СЋС‚СЃСЏ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ С„СѓРЅРєС†РёСЏ Rectangle РїРѕРЅРёРјР°Р»Р° С‡РµРј СЂРёСЃРѕРІР°С‚СЊ
+		//РІС‹Р±РёСЂР°РµРј С‡РµРј Рё РЅР° С‡С‘Рј Р±СѓРґРµРј СЂРёСЃРѕРІР°С‚СЊ
+		SelectObject(hdc, hPen);//Р’С‹Р±РёСЂР°РµРј СЃРѕР·РґР°РЅРЅС‹Р№ РєР°СЂР°РЅРґР°С€, С‡С‚РѕР±С‹ РёРј РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЂРёСЃРѕРІР°С‚СЊ.
+		SelectObject(hdc, hBrush);//Р’С‹Р±РёСЂР°РµРј СЃРѕР·РґР°РЅРЅСѓСЋ РєРёСЃС‚СЊ.
+		//РєРѕРіРґР° РјС‹ РІС‹Р±СЂР°Р»Рё РєРµРј Рё РЅР° С‡С‘Рј СЂРёСЃРѕРІР°С‚СЊ. Р РёСЃСѓРµРј С„РёРіСѓСЂСѓ
+		::Ellipse(hdc,start_x,start_y, start_x + r*2,start_y+ r * 2);//Р РёСЃСѓРµС‚ РєРІР°РґСЂР°С‚
+		//РЈРґР°Р»СЏРµРј СЃРѕР·РґР°РЅРЅСѓСЋ РєРёСЃС‚СЊ Рё РєР°СЂР°РЅРґР°С€:
 		DeleteObject(hBrush);
 		DeleteObject(hPen);
-		//Освобождаем контекст устройства:
+		//РћСЃРІРѕР±РѕР¶РґР°РµРј РєРѕРЅС‚РµРєСЃС‚ СѓСЃС‚СЂРѕР№СЃС‚РІР°:
 		ReleaseDC(hConsole, hdc);
 	}
 	virtual void info()const
 	{
-		//cout << "Площадь фигуры:\t" << get_area() << endl;
-		//cout << "Периметр фигуры:\t" << get_perimeter() << endl;
+		cout << "РџР»РѕС‰Р°РґСЊ РєСЂСѓРіР°:\t" << get_area() << endl;
+		cout << "РџРµСЂРёРјРµС‚СЂ РєСЂСѓРіР°:\t" << get_perimeter() << endl;
 		draw();
 	}
 
@@ -310,9 +303,9 @@ int main() {
 	//Shape shape(Color::console_blue, 0, 0, 1);
 	//Geometry::Square square(5, Geometry::Color::console_yelow, 100, 100, 3);
 	//square.info();
-	/*cout <<"Длинна стороны: " << square.get_side() << endl;
-	cout <<"Площадь квадрата: " << square.get_area() << endl;
-	cout <<"Периметр квадрата: " << square.get_perimeter() << endl;
+	/*cout <<"Р”Р»РёРЅРЅР° СЃС‚РѕСЂРѕРЅС‹: " << square.get_side() << endl;
+	cout <<"РџР»РѕС‰Р°РґСЊ РєРІР°РґСЂР°С‚Р°: " << square.get_area() << endl;
+	cout <<"РџРµСЂРёРјРµС‚СЂ РєРІР°РґСЂР°С‚Р°: " << square.get_perimeter() << endl;
 	square.draw();*/
 
 	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 500, 300, 5);
@@ -322,7 +315,7 @@ int main() {
 	square.info();
 
 
-	Geometry::Circle circle( 1200.0, Geometry::Color::red, 400, 400, 5);
+	Geometry::Circle circle( 700, Geometry::Color::red,700, 1200, 5);
 	circle.info();
 
 
