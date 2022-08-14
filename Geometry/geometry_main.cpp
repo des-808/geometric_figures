@@ -288,6 +288,161 @@ public:
 
 
 };
+
+	class Triangle:public Shape{
+	public:
+		Triangle(SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES){}
+		~Triangle() {}
+		virtual double get_height()const = 0;
+	};
+
+
+	class Equilaterial_Triangle :public Triangle {
+		double side;
+	public:
+		double get_side()const { return side; }
+		void set_side(double side) {
+				if (side > Defaults::primary_size_max)side = Defaults::primary_size_max;
+				if (side < Defaults::primary_size_min)side = Defaults::primary_size_min;
+				this->side = side;
+		}
+
+		Equilaterial_Triangle(double side, SHAPE_TAKE_PARAMETRES) :Triangle(SHAPE_GIVE_PARAMETRES) {
+			set_side(side);
+		}
+		~Equilaterial_Triangle(){}
+
+		double get_height()const {
+			return side * sqrt(3) / 2;
+		}
+
+		double get_area()const {
+			return side * get_height() / 2;
+		}
+
+		double get_perimeter()const {
+			return side * 3;
+		}
+
+
+		void draw()const {
+			//1)Получаем окно консоли
+			HWND hConsole = GetConsoleWindow();
+			//2)Получаем контекст устройства для нашего окна консоли.
+			HDC hdc = GetDC(hConsole);//то на чём будем рисовать
+			//3)создаём карандаш
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
+			//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
+			HBRUSH hBrush = CreateSolidBrush(filled ? color : Color::black);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
+			//выбираем чем и на чём будем рисовать
+			SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
+			SelectObject(hdc, hBrush);//Выбираем созданную кисть.
+			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
+			POINT point[] = {
+				{start_x,start_y + get_height() },
+				{start_x + side,start_y + get_height()},
+				{start_x + side / 2,start_y}
+			};
+			::Polygon(hdc,point,3);//Рисует квадрат
+			//Удаляем созданную кисть и карандаш:
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+			//Освобождаем контекст устройства:
+			ReleaseDC(hConsole, hdc);
+		}
+
+		virtual void info()const
+		{
+			cout << "Площадь треугольника:\t" << get_area() << endl;
+			cout << "Периметр треугольника:\t" << get_perimeter() << endl;
+			Shape::info();
+			draw();
+		}
+
+
+
+	}
+	
+	
+	;class Isosceles_Triangle :public Triangle {
+		double base;
+		double side;
+	public:
+		double get_base()const { return base; }
+		double get_side()const { return side; }
+		void set_base(double base) {
+			if (base > Defaults::primary_size_max)base = Defaults::primary_size_max;
+			if (base < Defaults::primary_size_min)base = Defaults::primary_size_min;
+			this->base = base;
+		}
+		void set_side(double side) {
+			if (side > Defaults::primary_size_max)side = Defaults::primary_size_max;
+			if (side < Defaults::primary_size_min)side = Defaults::primary_size_min;
+			this->side = side;
+		}
+
+		Isosceles_Triangle(double base,double side, SHAPE_TAKE_PARAMETRES) :Triangle(SHAPE_GIVE_PARAMETRES) {
+			set_base(base);
+			set_side(side);
+		}
+		~Isosceles_Triangle() {}
+
+		double get_height()const {
+			return sqrt(pow(base/2,2));
+		}
+
+		double get_area()const {
+			return side * side / 2;
+		}
+
+		double get_perimeter()const {
+			return side * 2+base;
+		}
+
+
+		void draw()const {
+			//1)Получаем окно консоли
+			HWND hConsole = GetConsoleWindow();
+			//2)Получаем контекст устройства для нашего окна консоли.
+			HDC hdc = GetDC(hConsole);//то на чём будем рисовать
+			//3)создаём карандаш
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
+			//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
+			HBRUSH hBrush = CreateSolidBrush(filled ? color : Color::black);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
+			//выбираем чем и на чём будем рисовать
+			SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
+			SelectObject(hdc, hBrush);//Выбираем созданную кисть.
+			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
+			POINT point[] = {
+				{start_x,start_y + get_height() },
+				{start_x + side,start_y + get_height()},
+				{start_x + side / 2,start_y}
+			};
+			::Polygon(hdc, point, 3);//Рисует квадрат
+			//Удаляем созданную кисть и карандаш:
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+			//Освобождаем контекст устройства:
+			ReleaseDC(hConsole, hdc);
+		}
+		virtual void info()const
+		{
+			cout << "Площадь треугольника:\t" << get_area() << endl;
+			cout << "Периметр треугольника:\t" << get_perimeter() << endl;
+			Shape::info();
+			draw();
+		}
+	};
+
+
+
+	/*Right
+
+    scalene*/
 }
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -299,17 +454,27 @@ int main() {
 	cout <<"Периметр квадрата: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 500, 300, 5,false);
-	rect.info();
+	/*Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 400, 400, 2,false);
+	rect.info();*/
 
-	Geometry::Square square( 40, Geometry::Color::green, 0, 400, 5,false);
-	square.info();
-
-
-	Geometry::Circle circle(147, Geometry::Color::red, 700, 250, 5,false);
-	circle.info();
+	/*Geometry::Square square( 40, Geometry::Color::green, 0, 500, 3,false);
+	square.info();*/
 
 
+	/*Geometry::Circle circle(147, Geometry::Color::red, 700, 250, 1,false);
+	circle.info();*/
 
+	/*Geometry::Equilaterial_Triangle triangl(300, Geometry::Color::yellow, 400, 700, 4,false);
+	triangl.info();*/
+
+
+	Geometry::Isosceles_Triangle is_triangl(400,100, Geometry::Color::blue, 400, 700, 2,false);
+	is_triangl.info();
+
+
+
+
+
+	char r;cin >> r;
 	return 1;
 }
