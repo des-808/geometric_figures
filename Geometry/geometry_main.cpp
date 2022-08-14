@@ -7,10 +7,11 @@
 using namespace std;
 namespace Geometry{
 	enum Color {
-		red = 0x000000FF,
-		green = 0x0000FF00,
-		blue = 0x00FF0000,
-		yellow = 0x0000FFFF,
+		black	= 0x00000000,
+		red		= 0x000000FF,
+		green	= 0x0000FF00,
+		blue	= 0x00FF0000,
+		yellow	= 0x0000FFFF,
 
 		console_blue = 0x99,
 		console_green = 0xAA,
@@ -38,8 +39,8 @@ namespace Geometry{
 //		Треугольник можно нарисовать используя функцию Polygon из библиотеки WinGDI;
 //	4. Реализовать класс Паралелограмм;
 //	5. В отдельной ветке нарисовать все эти фигуры используя библиотеку DirectX или OpenGL;
-#define SHAPE_TAKE_PARAMETRES Color color,unsigned int start_x, unsigned int start_y,unsigned int line_width
-#define SHAPE_GIVE_PARAMETRES color,start_x, start_y,line_width
+#define SHAPE_TAKE_PARAMETRES Color color,unsigned int start_x, unsigned int start_y,unsigned int line_width,bool filled = true
+#define SHAPE_GIVE_PARAMETRES color,start_x, start_y,line_width, filled
 	class Shape {
 	protected:
 		Color color;
@@ -52,7 +53,7 @@ namespace Geometry{
 		unsigned int get_start_x()const { return start_x; }
 		unsigned int get_start_y()const { return start_y; }
 		unsigned int get_line_widthy()const { return line_width; }
-		bool get_filled()const { return filled; }
+		//bool get_filled()const { return filled; }
 
 		void set_start_x(unsigned int start_x) {
 			if (start_x < Defaults::start_x_min)start_x = Defaults::start_x_min;
@@ -69,15 +70,14 @@ namespace Geometry{
 			if (line_width > Defaults::line_width_max)line_width = Defaults::line_width_max;
 			this->line_width = line_width;
 		}
-		void set_filled(bool filled) {
-			this->filled = filled;
-		}
+		//void set_filled(bool filled) {this->filled = filled;}
 
 		//Shape(Color color, unsigned int start_x, unsigned int start_y, unsigned int line_width) :color(color){
 		Shape(SHAPE_TAKE_PARAMETRES) :color(color) {
 			set_start_x(start_x);
 			set_start_y(start_y);
 			set_line_width(line_width);
+			this->filled = filled;
 		}
 		virtual ~Shape() {}
 		//чисто виртуальные методы и делают класс абстрактным
@@ -145,7 +145,6 @@ namespace Geometry{
 	{
 		double width;
 		double height;
-		bool filled;
 	public:
 		double get_width()const
 		{
@@ -154,10 +153,6 @@ namespace Geometry{
 		double get_height()const
 		{
 			return height;
-		}
-		bool get_filled()const
-		{
-			return filled;
 		}
 		void set_width(double width)
 		{
@@ -170,10 +165,6 @@ namespace Geometry{
 			if (height < Defaults::primary_size_min)height = Defaults::primary_size_min;
 			if (height > Defaults::primary_size_max)height = Defaults::primary_size_max;
 			this->height = height;
-		}
-		void set_filled(bool filled)
-		{
-			this->filled = filled;
 		}
 		Rectangle(//double width, double height,Color color, unsigned int start_x, unsigned int start_y, unsigned int line_width) :Shape(color, start_x, start_y, line_width)
 			double width, double height, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) {
@@ -210,7 +201,7 @@ namespace Geometry{
 			//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
 
 			//SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
-			HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			HBRUSH hBrush = CreateSolidBrush(filled?color: Color::black);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
 			//SelectObject(hdc, hBrush);//Выбираем созданную кисть.
 			//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
 
@@ -248,7 +239,7 @@ namespace Geometry{
 
 	};
 
-class Circle :public Shape{
+	class Circle :public Shape{
 	double r;
 public:
 	double get_r()const{return r;}
@@ -257,8 +248,7 @@ public:
 						 this->r = r;
 	}
 
-	//bool  get_filled()const{return filled;}
-	//void set_filled(bool filled){this->filled = filled;}
+
 
 	Circle(double r, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) { set_r(r); }
 	~Circle() {}
@@ -275,7 +265,7 @@ public:
 		//3)создаём карандаш
 		HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
 		//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
-		HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+		HBRUSH hBrush = CreateSolidBrush(filled ? color :Color:: black);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
 		//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
 		//выбираем чем и на чём будем рисовать
 		SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
@@ -292,6 +282,7 @@ public:
 	{
 		cout << "Площадь круга:\t" << get_area() << endl;
 		cout << "Периметр круга:\t" << get_perimeter() << endl;
+		Shape::info();
 		draw();
 	}
 
@@ -308,14 +299,14 @@ int main() {
 	cout <<"Периметр квадрата: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 500, 300, 5);
+	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 500, 300, 5,false);
 	rect.info();
 
-	Geometry::Square square( 40, Geometry::Color::green, 0, 400, 5);
+	Geometry::Square square( 40, Geometry::Color::green, 0, 400, 5,false);
 	square.info();
 
 
-	Geometry::Circle circle( 700, Geometry::Color::red,700, 1200, 5);
+	Geometry::Circle circle(147, Geometry::Color::red, 700, 250, 5,false);
 	circle.info();
 
 
