@@ -459,15 +459,10 @@ int main() {
 
 	/*Geometry::Square square( 40, Geometry::Color::green, 0, 500, 3,false);
 	square.info();*/
-
-
 	/*Geometry::Circle circle(147, Geometry::Color::red, 700, 250, 1,false);
 	circle.info();*/
-
 	/*Geometry::Equilaterial_Triangle triangl(300, Geometry::Color::yellow, 400, 700, 4,false);
 	triangl.info();*/
-
-
 	Geometry::Isosceles_Triangle is_triangl(400,100, Geometry::Color::blue, 400, 700, 2,false);
 	is_triangl.info();
 
