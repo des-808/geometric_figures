@@ -28,8 +28,7 @@ namespace Geometry{
 		line_width_max = 30,
 		primary_size_min = 5,
 		primary_size_max = 500
-	};
-
+	};  
 //TODO:
 //	1. Во все геометрические фигуры добавить атрибут 'filled', который определяет, закрашена ли фигура,
 //		или же отображается контуром;
