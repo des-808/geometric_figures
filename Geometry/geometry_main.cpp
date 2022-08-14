@@ -378,9 +378,7 @@ public:
 		}
 		~Isosceles_Triangle() {}
 
-		//double get_height()const	{	return sqrt(pow(base/2,2));}
-		double get_height()const { return sqrt(pow(side, 2) - pow(base/2, 2));
-	}
+		double get_height()const	{	return sqrt(pow(side, 2) - pow(base/2, 2));}
 		double get_area()const		{	return side * side / 2;}
 		double get_perimeter()const {	return side * 2+base;}
 
@@ -405,11 +403,7 @@ public:
 				{start_x + base,start_y + get_height()},
 				{start_x + base / 2,start_y}
 			};
-			/*POINT point[] = {
-				{start_x,start_y + get_height() },
-				{start_x + side,start_y + get_height()},
-				{start_x + side / 2,start_y}
-			};*/
+			
 			::Polygon(hdc, point, 3);//Рисует квадрат
 			//Удаляем созданную кисть и карандаш:
 			DeleteObject(hBrush);
@@ -451,7 +445,7 @@ int main() {
 	circle.info();*/
 	/*Geometry::Equilaterial_Triangle triangl(300, Geometry::Color::yellow, 400, 700, 4,false);
 	triangl.info();*/
-	Geometry::Isosceles_Triangle is_triangl(77,177, Geometry::Color::blue, 400, 700, 2,false);
+	Geometry::Isosceles_Triangle is_triangl(100,300, Geometry::Color::blue, 400, 700, 2,false);
 	is_triangl.info();
 
 
