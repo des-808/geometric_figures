@@ -1,16 +1,16 @@
 #include<iostream>
 #include<Windows.h>
 #include <cmath>
+#include <WinGDI.h>
+
 #define M_PI       3.14159265358979323846   // pi
 using namespace std;
-namespace Geometry
-{
+namespace Geometry{
 	enum Color {
 		red = 0x000000FF,
 		green = 0x0000FF00,
 		blue = 0x00FF0000,
 		yellow = 0x0000FFFF,
-
 
 		console_blue = 0x99,
 		console_green = 0xAA,
@@ -30,7 +30,15 @@ namespace Geometry
 		primary_size_max = 500
 	};
 
-
+//TODO:
+//	1. Во все геометрические фигуры добавить атрибут 'filled', который определяет, закрашена ли фигура,
+//		или же отображается контуром;
+//	2. В иерархию геометрических фигур добавить класс Circle.
+//		Круг можно нарисовать используя функцию Circle из библиотеки WinGDI;
+//	3. В иерархию геометрических фигур добавить иерархию треугольников.
+//		Треугольник можно нарисовать используя функцию Polygon из библиотеки WinGDI;
+//	4. Реализовать класс Паралелограмм;
+//	5. В отдельной ветке нарисовать все эти фигуры используя библиотеку DirectX или OpenGL;
 #define SHAPE_TAKE_PARAMETRES Color color,unsigned int start_x, unsigned int start_y,unsigned int line_width
 #define SHAPE_GIVE_PARAMETRES color,start_x, start_y,line_width
 	class Shape {
@@ -39,11 +47,13 @@ namespace Geometry
 		unsigned int start_x;
 		unsigned int start_y;
 		unsigned int line_width;
+		bool filled;
 	public:
 		Color get_color()const { return color; }
 		unsigned int get_start_x()const { return start_x; }
 		unsigned int get_start_y()const { return start_y; }
 		unsigned int get_line_widthy()const { return line_width; }
+		bool get_filled()const { return filled; }
 
 		void set_start_x(unsigned int start_x) {
 			if (start_x < Defaults::start_x_min)start_x = Defaults::start_x_min;
@@ -59,6 +69,9 @@ namespace Geometry
 			if (line_width < Defaults::line_width_min)line_width = Defaults::line_width_min;
 			if (line_width > Defaults::line_width_max)line_width = Defaults::line_width_max;
 			this->line_width = line_width;
+		}
+		void set_filled(bool filled) {
+			this->filled = filled;
 		}
 
 		//Shape(Color color, unsigned int start_x, unsigned int start_y, unsigned int line_width) :color(color){
@@ -133,6 +146,7 @@ namespace Geometry
 	{
 		double width;
 		double height;
+		bool filled;
 	public:
 		double get_width()const
 		{
@@ -141,6 +155,10 @@ namespace Geometry
 		double get_height()const
 		{
 			return height;
+		}
+		bool get_filled()const
+		{
+			return filled;
 		}
 		void set_width(double width)
 		{
@@ -153,6 +171,10 @@ namespace Geometry
 			if (height < Defaults::primary_size_min)height = Defaults::primary_size_min;
 			if (height > Defaults::primary_size_max)height = Defaults::primary_size_max;
 			this->height = height;
+		}
+		void set_filled(bool filled)
+		{
+			this->filled = filled;
 		}
 		Rectangle(//double width, double height,Color color, unsigned int start_x, unsigned int start_y, unsigned int line_width) :Shape(color, start_x, start_y, line_width)
 			double width, double height, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) {
@@ -231,20 +253,55 @@ class Circle :public Shape{
 	double r;
 public:
 	double get_r()const{return r;}
-	/*double get_height()const
-	{
-		return height;
-	}*/
+	bool  get_filled()const{return filled;}
 	void set_r(double r){this->r = r;}
-	/*void set_height(double height)
+
+	void set_filled(bool filled){this->filled = filled;}
+	Circle(double xz, SHAPE_TAKE_PARAMETRES) :Shape(SHAPE_GIVE_PARAMETRES) { this->r = xz; }
+	~Circle() {}
+
+	double get_area()const {return 1;}
+	//double get_area()const {return r * r;}
+	double get_perimeter()const {return 2;}
+	//double get_perimeter()const {return (r + r) * 2;}
+
+	void draw()const{
+		//1)Получаем окно консоли
+		HWND hConsole = GetConsoleWindow();
+		//2)Получаем контекст устройства для нашего окна консоли.
+		HDC hdc = GetDC(hConsole);//то на чём будем рисовать
+		//3)создаём карандаш
+		HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
+		//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
+		HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+		//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
+
+		//выбираем чем и на чём будем рисовать
+		SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
+		SelectObject(hdc, hBrush);//Выбираем созданную кисть.
+		//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
+
+		//temp_shape.right = y1 + (x2 - x1);
+		//Ellipse(backbuffDC, temp_shape.left, temp_shape.top, temp_shape.right, temp_shape.bottom);
+		
+		//(start_y + (start_x - r));
+		::Ellipse(hdc, 499,499, 500, 500);//Рисует квадрат
+		//::Ellipse(hdc,start_x,start_y, start_x + (start_y-120),start_y+(start_x-120));//Рисует квадрат
+		//::Ellipse(hdc, start_x, start_y, start_x + 100, start_y+100);//Рисует квадрат
+		//::Ellipse(hdc, start_x, start_y, start_x + 5, start_y+5);//Рисует квадрат
+
+		//Удаляем созданную кисть и карандаш:
+		DeleteObject(hBrush);
+		DeleteObject(hPen);
+		//Освобождаем контекст устройства:
+		ReleaseDC(hConsole, hdc);
+	}
+	virtual void info()const
 	{
-		if (height < Defaults::primary_size_min)height = Defaults::primary_size_min;
-		if (height > Defaults::primary_size_max)height = Defaults::primary_size_max;
-		this->height = height;
-	}*/
-
-
-
+		//cout << "Площадь фигуры:\t" << get_area() << endl;
+		//cout << "Периметр фигуры:\t" << get_perimeter() << endl;
+		draw();
+	}
 
 
 };
@@ -264,5 +321,12 @@ int main() {
 
 	Geometry::Square square( 40, Geometry::Color::green, 0, 400, 5);
 	square.info();
+
+
+	Geometry::Circle circle( 1200.0, Geometry::Color::red, 400, 400, 5);
+	circle.info();
+
+
+
 	return 1;
 }
