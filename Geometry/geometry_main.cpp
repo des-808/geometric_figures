@@ -28,7 +28,10 @@ namespace Geometry{
 		line_width_min = 1,
 		line_width_max = 30,
 		primary_size_min = 5,
-		primary_size_max = 500
+		primary_size_max = 500,
+		primary_angle_min = 0,
+		primary_angle_max = 179
+
 	};  
 //TODO:
 //	1. Во все геометрические фигуры добавить атрибут 'filled', который определяет, закрашена ли фигура,
@@ -143,6 +146,7 @@ namespace Geometry{
 
 	class Rectangle :public Shape
 	{
+	protected:
 		double width;
 		double height;
 	public:
@@ -425,6 +429,67 @@ public:
 	/*Right
 
     scalene*/
+
+	;class Paralelogramm :public Rectangle {
+		int angle;
+	public:
+		double get_angle()const { return angle; }
+		void set_angle(double angle) {
+			if (angle > Defaults::primary_angle_max)angle = Defaults::primary_angle_max;
+			if (angle < Defaults::primary_angle_min)angle = Defaults::primary_angle_min;
+			this->angle = angle;
+		}
+		
+
+		Paralelogramm(int angle, SHAPE_TAKE_PARAMETRES) :Rectangle(SHAPE_GIVE_PARAMETRES) {
+			set_angle(angle);
+		}
+		~Paralelogramm() {}
+		double D;
+		double get_diagonal()const	{	return sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+		}
+		/*double get_height()const	{	return sqrt(pow(side, 2) - pow(base/2, 2));}
+		double get_area()const		{	return side * side / 2;}
+		double get_perimeter()const {	return side * 2+base;}*/
+
+
+		void draw()const {
+			//1)Получаем окно консоли
+			HWND hConsole = GetConsoleWindow();
+			//2)Получаем контекст устройства для нашего окна консоли.
+			HDC hdc = GetDC(hConsole);//то на чём будем рисовать
+			//3)создаём карандаш
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);//Карандаш рисует контур фигуры
+			//PS_SOLID - сплошная линия, 5 - толщина линии 5 пикселов, RGB(...) - цвет.
+			HBRUSH hBrush = CreateSolidBrush(filled ? color : Color::black);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//HBRUSH hBrush = CreateSolidBrush(color);//Создаем кисть. Кисть закрашивает замкнутые фигуры.
+			//Кисть и карандаш выбираются для того, чтобы функция Rectangle понимала чем рисовать
+			//выбираем чем и на чём будем рисовать
+			SelectObject(hdc, hPen);//Выбираем созданный карандаш, чтобы им можно было рисовать.
+			SelectObject(hdc, hBrush);//Выбираем созданную кисть.
+			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
+			POINT point[] = {
+				{start_x,start_y + get_height() },
+				{start_x + angle,start_y + get_height()},
+				{start_x + angle / 2,start_y}
+			};
+			
+			::Polygon(hdc, point, 3);//Рисует квадрат
+			//Удаляем созданную кисть и карандаш:
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+			//Освобождаем контекст устройства:
+			ReleaseDC(hConsole, hdc);
+		}
+		virtual void info()const
+		{
+			cout << "Площадь треугольника:\t" << get_area() << endl;
+			cout << "Периметр треугольника:\t" << get_perimeter() << endl;
+			Shape::info();
+			draw();
+		}
+	};
+
 }
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -436,8 +501,8 @@ int main() {
 	cout <<"Периметр квадрата: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	/*Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 400, 400, 2,false);
-	rect.info();*/
+	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 400, 400, 2,false);
+	rect.info();
 
 	/*Geometry::Square square( 40, Geometry::Color::green, 0, 500, 3,false);
 	square.info();*/
