@@ -441,12 +441,13 @@ public:
 		}
 		
 
-		Paralelogramm(int angle, SHAPE_TAKE_PARAMETRES) :Rectangle(SHAPE_GIVE_PARAMETRES) {
+		Paralelogramm(int angle, SHAPE_TAKE_PARAMETRES) :Rectangle(width,height,SHAPE_GIVE_PARAMETRES) {
 			set_angle(angle);
 		}
 		~Paralelogramm() {}
-		double D;
-		double get_diagonal()const	{	return sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+		double get_diagonal()const	{	
+			//cout<<sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+			return sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
 		}
 		/*double get_height()const	{	return sqrt(pow(side, 2) - pow(base/2, 2));}
 		double get_area()const		{	return side * side / 2;}
@@ -469,12 +470,14 @@ public:
 			SelectObject(hdc, hBrush);//Выбираем созданную кисть.
 			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
 			POINT point[] = {
-				{start_x,start_y + get_height() },
-				{start_x + angle,start_y + get_height()},
-				{start_x + angle / 2,start_y}
+				{start_x,start_y },
+				{start_x + get_height(),start_y},
+				{start_x + angle / 2,start_y},
+				{start_x + get_width() ,start_y + get_height()},
+
 			};
 			
-			::Polygon(hdc, point, 3);//Рисует квадрат
+			::Polygon(hdc, point, 4);//Рисует квадрат
 			//Удаляем созданную кисть и карандаш:
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -501,8 +504,8 @@ int main() {
 	cout <<"Периметр квадрата: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 400, 400, 2,false);
-	rect.info();
+	//Geometry::Rectangle rect (100, 70, Geometry::Color::blue, 400, 400, 2,false);
+	//rect.info();
 
 	/*Geometry::Square square( 40, Geometry::Color::green, 0, 500, 3,false);
 	square.info();*/
@@ -510,11 +513,11 @@ int main() {
 	circle.info();*/
 	/*Geometry::Equilaterial_Triangle triangl(300, Geometry::Color::yellow, 400, 700, 4,false);
 	triangl.info();*/
-	Geometry::Isosceles_Triangle is_triangl(100,300, Geometry::Color::blue, 400, 700, 2,false);
-	is_triangl.info();
+	//Geometry::Isosceles_Triangle is_triangl(100,300, Geometry::Color::blue, 400, 700, 2,false);
+	//is_triangl.info();
 
-
-
+	Geometry::Paralelogramm paral(30,Geometry::Color::blue, 400, 700, 2, false );
+	paral.info();
 
 
 	char r;cin >> r;
