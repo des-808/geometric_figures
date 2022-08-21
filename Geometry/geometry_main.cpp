@@ -441,7 +441,7 @@ public:
 		}
 		
 
-		Paralelogramm(int angle, SHAPE_TAKE_PARAMETRES) :Rectangle(width,height,SHAPE_GIVE_PARAMETRES) {
+		Paralelogramm(int angle,double width,double height, SHAPE_TAKE_PARAMETRES) :Rectangle(width,height,SHAPE_GIVE_PARAMETRES) {
 			set_angle(angle);
 		}
 		~Paralelogramm() {}
@@ -470,10 +470,10 @@ public:
 			SelectObject(hdc, hBrush);//Выбираем созданную кисть.
 			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
 			POINT point[] = {
-				{start_x,start_y },
-				{start_x + get_height(),start_y},
-				{start_x + angle / 2,start_y},
-				{start_x + get_width() ,start_y + get_height()},
+				{start_x+((dc-ab)/2),start_y},
+				{start_x+dc-((dc-ab)/2),start_y},
+				{start_x,start_y+ah},
+				{start_x + dc ,start_y + ah},
 
 			};
 			
@@ -516,7 +516,7 @@ int main() {
 	//Geometry::Isosceles_Triangle is_triangl(100,300, Geometry::Color::blue, 400, 700, 2,false);
 	//is_triangl.info();
 
-	Geometry::Paralelogramm paral(30,Geometry::Color::blue, 400, 700, 2, false );
+	Geometry::Paralelogramm paral(30,100.0,200.0,Geometry::Color::blue, 400, 700, 2, false );
 	paral.info();
 
 
