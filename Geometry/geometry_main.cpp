@@ -29,8 +29,8 @@ namespace Geometry{
 		line_width_max = 30,
 		primary_size_min = 5,
 		primary_size_max = 500,
-		primary_angle_min = 0,
-		primary_angle_max = 179
+		primary_visota_min = 0,
+		primary_visota_max = 179
 
 	};  
 //TODO:
@@ -431,23 +431,36 @@ public:
     scalene*/
 
 	;class Paralelogramm :public Rectangle {
-		int angle;
+		double visota;
+		double ab;
+		double dc;
 	public:
-		double get_angle()const { return angle; }
-		void set_angle(double angle) {
-			if (angle > Defaults::primary_angle_max)angle = Defaults::primary_angle_max;
-			if (angle < Defaults::primary_angle_min)angle = Defaults::primary_angle_min;
-			this->angle = angle;
+		double get_visota()const { return visota; }
+		void set_visota(double angle) {
+			if (visota > Defaults::primary_visota_max)visota = Defaults::primary_visota_max;
+			if (visota < Defaults::primary_visota_min)visota = Defaults::primary_visota_min;
+			this->visota = visota;
+		}void set_ab(double ab) {
+			if (ab > Defaults::primary_visota_max)ab = Defaults::primary_visota_max;
+			if (ab < Defaults::primary_visota_min)ab = Defaults::primary_visota_min;
+			this->ab = ab;
+		}void set_dc(double dc) {
+			if (dc > Defaults::primary_visota_max)dc = Defaults::primary_visota_max;
+			if (dc < Defaults::primary_visota_min)dc = Defaults::primary_visota_min;
+			this->dc = dc;
 		}
 		
 
-		Paralelogramm(int angle,double width,double height, SHAPE_TAKE_PARAMETRES) :Rectangle(width,height,SHAPE_GIVE_PARAMETRES) {
-			set_angle(angle);
+		Paralelogramm(double visota,double ab,double dc, SHAPE_TAKE_PARAMETRES) :Rectangle(width,height,SHAPE_GIVE_PARAMETRES) {
+			set_visota(visota);
 		}
 		~Paralelogramm() {}
-		double get_diagonal()const	{	
-			//cout<<sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
-			return sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+		//double get_diagonal()const	{	
+		//	//cout<<sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+		//	return sqrt(((width * width) + (height * height)) - (2 * (width * height)) * cos(angle));
+		//}
+		double get_ah() {
+			//return sqrt(pow(side, 2) - pow(base / 2, 2));
 		}
 		/*double get_height()const	{	return sqrt(pow(side, 2) - pow(base/2, 2));}
 		double get_area()const		{	return side * side / 2;}
@@ -471,13 +484,14 @@ public:
 			//когда мы выбрали кем и на чём рисовать. Рисуем фигуру
 			POINT point[] = {
 				{start_x+((dc-ab)/2),start_y},
-				{start_x+dc-((dc-ab)/2),start_y},
-				{start_x,start_y+ah},
-				{start_x + dc ,start_y + ah},
+				{start_x+(dc-((dc-ab)/2)),start_y},
+				//{start_x,start_y+visota},
+				{start_x + dc ,start_y + visota},
+				{start_x + ab ,start_y - visota},
 
 			};
 			
-			::Polygon(hdc, point, 4);//Рисует квадрат
+			::Polygon(hdc, point, 5);//Рисует квадрат
 			//Удаляем созданную кисть и карандаш:
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -516,7 +530,7 @@ int main() {
 	//Geometry::Isosceles_Triangle is_triangl(100,300, Geometry::Color::blue, 400, 700, 2,false);
 	//is_triangl.info();
 
-	Geometry::Paralelogramm paral(30,100.0,200.0,Geometry::Color::blue, 400, 700, 2, false );
+	Geometry::Paralelogramm paral(30.0,20.0,10.0,Geometry::Color::blue, 400, 700, 2, false );
 	paral.info();
 
 
